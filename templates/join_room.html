@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Join a Chat Room</h2>
+    <form id="join-room-form">
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="room" placeholder="Room Name">
+        <button type="submit">Join Room</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script>
+        var socket = io.connect();
+        document.getElementById('join-room-form').onsubmit = function(e) {
+            e.preventDefault();
+            var username = document.getElementById('username').value;
+            var room = document.getElementById('room').value;
+            socket.emit('join', { 'username': username, 'room': room });
+        };
+    </script>
+</body>
+</html>
